@@ -4,6 +4,7 @@ import com.app.socialmediaapi.dto.SigninRequest;
 import com.app.socialmediaapi.dto.SigninResponse;
 import com.app.socialmediaapi.dto.SignupRequest;
 import com.app.socialmediaapi.service.UserService;
+import com.app.socialmediaapi.utils.Action;
 import com.app.socialmediaapi.utils.RequestObject;
 import com.app.socialmediaapi.utils.ResponseOKFactory;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class SecurityController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
         userService.signup(signupRequest);
-        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(RequestObject.USER), HttpStatus.OK);
+        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(Action.CREATE, RequestObject.USER), HttpStatus.OK);
     }
     @PostMapping("/signin")
     public ResponseEntity<SigninResponse> signin(@RequestBody SigninRequest signinRequest) {

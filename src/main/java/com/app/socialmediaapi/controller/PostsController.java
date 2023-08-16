@@ -3,6 +3,7 @@ package com.app.socialmediaapi.controller;
 import com.app.socialmediaapi.dto.PostDto;
 import com.app.socialmediaapi.model.Post;
 import com.app.socialmediaapi.service.PostService;
+import com.app.socialmediaapi.utils.Action;
 import com.app.socialmediaapi.utils.RequestObject;
 import com.app.socialmediaapi.utils.ResponseOKFactory;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class PostsController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @ModelAttribute PostDto postDto) {
         postService.save(token, postDto);
-        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(RequestObject.POST), HttpStatus.OK);
+        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(Action.CREATE, RequestObject.POST), HttpStatus.OK);
     }
 
     @GetMapping
@@ -34,6 +35,6 @@ public class PostsController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePostById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Long id){
         postService.deletePostById(token, id);
-        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(RequestObject.POST), HttpStatus.OK);
+        return new ResponseEntity<>(ResponseOKFactory.getTextResponse(Action.DELETE, RequestObject.POST), HttpStatus.OK);
     }
 }
