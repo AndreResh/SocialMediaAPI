@@ -1,2 +1,6 @@
-package com.app.socialmediaapi.utils;public enum RequestObject {
+package com.app.socialmediaapi.utils;
+
+public enum RequestObject {
+    USER,
+    POST
 }

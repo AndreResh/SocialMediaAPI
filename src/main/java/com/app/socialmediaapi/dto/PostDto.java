@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoDto {
+public class PostDto {
     private String header;
     private String text;
     private MultipartFile image;
