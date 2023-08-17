@@ -2,5 +2,8 @@ package com.app.socialmediaapi.utils;
 
 public enum RequestObject {
     USER,
-    POST
+    POST,
+    SUBSCRIBE,
+    FRIEND,
+    MESSAGE
 }

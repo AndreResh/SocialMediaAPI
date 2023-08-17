@@ -1,5 +1,6 @@
 package com.app.socialmediaapi.security;
 
+import com.app.socialmediaapi.utils.JwtHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
     private final UserDetailsService userDetailsService;
+    private final JwtHelper jwtHelper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,7 +34,7 @@ public class TokenFilter extends OncePerRequestFilter {
             String headerAuth = request.getHeader("Authorization");
             if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
                 jwt = headerAuth.substring(7);
-                username = jwtConfig.getPayloadFromJwt(jwt).split(" ")[0];
+                username = jwtHelper.getPayloadFromJwt(jwt).split(" ")[0];
                 userDetails = userDetailsService.loadUserByUsername(username);
                 auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

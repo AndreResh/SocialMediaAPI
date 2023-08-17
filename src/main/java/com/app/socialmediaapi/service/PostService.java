@@ -6,6 +6,7 @@ import com.app.socialmediaapi.model.User;
 import com.app.socialmediaapi.repository.PostRepository;
 import com.app.socialmediaapi.repository.UserRepository;
 import com.app.socialmediaapi.security.JwtConfig;
+import com.app.socialmediaapi.utils.JwtHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PostService {
 
-    private final JwtConfig jwtConfig;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final JwtHelper jwtHelper;
 
     public void save(String token, PostDto postDto) {
-        User user = findUserByToken(token);
+        User user = jwtHelper.findUserByToken(token);
         Post post;
         try {
             post = new Post(postDto.getHeader(), postDto.getText(), postDto.getImage().getBytes(), user);
@@ -42,7 +43,7 @@ public class PostService {
     }
 
     public void deletePostById(String token, Long id) {
-        User user = findUserByToken(token);
+        User user = jwtHelper.findUserByToken(token);
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Post with this id doesn't exist")
         );
@@ -50,12 +51,5 @@ public class PostService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can't delete post of another user");
         }
         postRepository.deleteById(id);
-    }
-
-    private User findUserByToken(String token){
-        String[] payload = jwtConfig.getPayloadFromJwt(token.substring(7)).split(" ");
-        return userRepository.findUserByUsernameAndEmail(payload[0], payload[1]).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with this email and username doesnt exists")
-        );
     }
 }

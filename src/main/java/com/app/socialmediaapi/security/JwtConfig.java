@@ -25,8 +25,4 @@ public class JwtConfig {
                 .signWith(SignatureAlgorithm.HS256, appSecret.getKey())
                 .compact();
     }
-
-    public String getPayloadFromJwt(String token){
-        return Jwts.parser().setSigningKey(appSecret.getKey()).parseClaimsJws(token).getBody().getSubject();
-    }
 }

@@ -1,0 +1,41 @@
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+    "username":"and",
+    "email":"ccc",
+    "password":"aaa"
+}
+
+###
+
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username":"andd",
+  "email":"cccc",
+  "password":"aaaa"
+}
+
+###
+
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "username":"and",
+  "email":"ccc",
+  "password":"aaa"
+}
+
+###
+
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "username":"andd",
+  "email":"cccc",
+  "password":"aaaa"
+}

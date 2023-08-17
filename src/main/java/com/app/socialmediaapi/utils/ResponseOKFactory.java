@@ -23,6 +23,12 @@ public class ResponseOKFactory {
                 return Map.of("response", "Post is " + result);
             case USER:
                 return Map.of("response", "User is " + result);
+            case SUBSCRIBE:
+                return Map.of("response", "Subscribe is " + result);
+            case FRIEND:
+                return Map.of("response", "Friend is " + result);
+            case MESSAGE:
+                return Map.of("response", "Message is " + result);
             default:
                 throw new RuntimeException("Unknown object");
         }
