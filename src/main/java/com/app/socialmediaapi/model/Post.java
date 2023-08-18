@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,6 +20,7 @@ public class Post {
         this.text = text;
         this.content = content;
         this.user = user;
+        this.createTime = LocalDateTime.now();
     }
 
     @Id
@@ -30,6 +31,7 @@ public class Post {
     @Lob
     @Type(type = "org.hibernate.type.ImageType")
     private byte[] content;
+    private LocalDateTime createTime;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore

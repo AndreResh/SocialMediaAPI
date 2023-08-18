@@ -5,7 +5,6 @@ import com.app.socialmediaapi.model.Post;
 import com.app.socialmediaapi.model.User;
 import com.app.socialmediaapi.repository.PostRepository;
 import com.app.socialmediaapi.repository.UserRepository;
-import com.app.socialmediaapi.security.JwtConfig;
 import com.app.socialmediaapi.utils.JwtHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

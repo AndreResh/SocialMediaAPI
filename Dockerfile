@@ -1,12 +1,3 @@
-FROM gradle:7.2-alpine AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
-
-FROM adoptopenjdk:11-jre-hotspot
-
-RUN mkdir /app
-
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
-
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
+FROM adoptopenjdk/openjdk11
+COPY build/libs/SocialMediaAPI-0.0.1-SNAPSHOT.jar SocialMediaAPI-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/SocialMediaAPI-0.0.1-SNAPSHOT.jar"]

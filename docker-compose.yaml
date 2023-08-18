@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: 'docker-spring-boot-postgres:latest'
+    image: 'spring-boot-postgres:latest'
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,9 +11,11 @@ services:
     depends_on:
       - db
     environment:
+      - SERVER_PORT=8181
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+
 
   db:
     image: postgres:13-alpine
